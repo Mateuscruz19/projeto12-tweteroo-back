@@ -5,49 +5,34 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-let users = []
+let users = {}
 let Tweets = [];
+let userstweet = []
 const ok = "OK"
 
 app.post('/sign-up', (req, res) => {
-
-    const { username, avatar } = req.body;
-
-    if(username || avatar){
+    if(!req.body.username || !req.body.avatar){
       res.status(400).send("Todos os campos são obrigatórios");
-      return
     }
-
-    if(username == !String || avatar == !String){
-        res.status(400).send("Os campos precisam ser caracteres.");
-        return
-      }
-
 	users = {user: req.body}
   res.status(201).send(ok)
 
 });
 
 app.get('/tweets', (req,res) => {
-    const { page } = req.query;
-
-    const start = (page - 1) * 10; 
-    const end = page * 10
-
-    res.send([...Tweets].reverse().slice(start, end));
+   res.send(Tweets)
+   global.console.log(Tweets)
 });
 
 // avatar: users.user.avatar,
 app.post('/tweets', (req,res) => {
-
-    const { tweet } = req.body
     Tweets.push({
       username: req.body.username,
       avatar: users.user.avatar,
         tweet: req.body.tweet
     })
-    if(!tweet || (tweet = []) || (tweet = !String)){
-      res.status(400);
+    if(!req.body){
+      res.status(400).send("Todos os campos são obrigatórios");
     }
 
     res.status(201).send(ok)
