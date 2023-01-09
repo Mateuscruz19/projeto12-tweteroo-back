@@ -87,10 +87,11 @@ app.get('/tweets', (req,res) => {
 
  app.get('/tweets/:username', (req,res) => {
 
-  const username = req.params.username;
-  const result = tweets.filter(obj => obj.username.toLowerCase() === username.toLowerCase())
+  const { username } = req.params;
 
- res.send(result.reverse());
+  const result = tweets.filter(obj => obj.username === username).reverse();
+
+ res.send(result);
 })
 
 
