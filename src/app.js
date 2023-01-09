@@ -78,14 +78,14 @@ app.get('/tweets', (req,res) => {
     res.status(200).send([...tweets].reverse());
     return;
   }
-  res.status(200).send([...tweets].reverse().slice(10));
+  res.status(200).send([...tweets].reverse().slice(0,10));
  });
 
 
  app.get('/tweets/:username', (req,res) => {
 
   const username = req.params.username;
-  const result = tweets.filter(obj => obj.username.toLowerCase() === username.toLowerCase())
+  const result = tweets.filter(obj => obj.username === username)
 
  res.send(result.reverse());
 })
