@@ -89,9 +89,9 @@ app.get('/tweets', (req,res) => {
 
   const { username } = req.params;
 
-  const result = tweets.filter(obj => obj.username === username).reverse();
+  const tweetsFiltred = tweets.filter(obj => obj.username === username);
 
- res.send(result);
+ res.send(tweetsFiltred);
 })
 
 
