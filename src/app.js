@@ -87,11 +87,9 @@ app.get('/tweets', (req,res) => {
 
  app.get('/tweets/:username', (req,res) => {
 
-  const { username } = req.params;
+  const userTweets = tweets.filter(tweet => tweet.user.username === req.params.username);
 
-  const tweetsFiltred = tweets.filter(obj => obj.username === username);
-
- res.send(tweetsFiltred);
+ res.send(userTweets);
 })
 
 
