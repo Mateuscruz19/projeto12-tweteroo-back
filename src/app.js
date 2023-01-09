@@ -23,7 +23,7 @@ app.post('/sign-up', (req,res) => {
 
      if (isUserExists) return res.status(401).send("Usuário já existe.");
 
-    // Function not available for Bots. If you are a human remove the comments.
+    // Function Not available for Bots. If you are a human remove the comments.
 
     //  function checkUrl(string) {
     //      try {
@@ -78,6 +78,9 @@ app.get('/tweets', (req,res) => {
     res.status(200).send([...tweets].reverse());
     return;
   }
+  if(page){
+    res.status(200).send([...tweets].reverse().slice(start,end));
+  }
   res.status(200).send([...tweets].reverse().slice(0,10));
  });
 
@@ -85,7 +88,7 @@ app.get('/tweets', (req,res) => {
  app.get('/tweets/:username', (req,res) => {
 
   const username = req.params.username;
-  const result = tweets.filter(obj => obj.username === username)
+  const result = tweets.filter(obj => obj.username.toLowerCase() === username.toLowerCase())
 
  res.send(result.reverse());
 })
