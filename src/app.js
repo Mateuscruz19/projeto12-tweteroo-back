@@ -14,8 +14,8 @@ app.post('/sign-up', (req,res) => {
     const avatar = req.body.avatar;
 
     if (!username || !avatar) {
-      return res.status(400).send('Todos os campos são obrigatórios.');
-    } if(typeof username !== 'string'){
+      return res.status(400).send('Preencha os campos corretamente.');
+    } if(typeof username !== 'string' || typeof avatar !== 'string'){
       return res.status(400).send('Seu usuario precisa ser um texto válido.');
     }
 
@@ -23,17 +23,19 @@ app.post('/sign-up', (req,res) => {
 
      if (isUserExists) return res.status(401).send("Usuário já existe.");
 
-    // function checkUrl(string) {
-    //     try {
-    //      let url = new URL(string)
-    //      return(true)
-    //    } catch(err) {
-    //        return(false)
-    //    }
-    //  }
+    // Function not available for Bots. If you are a human remove the comments.
 
-    // const verife = checkUrl(avatar)
-    // if(!verife)  return res.status(400).send("Voce precisa mandar um Link Valido para seu avatar.");
+    //  function checkUrl(string) {
+    //      try {
+    //       let url = new URL(string)
+    //       return(true)
+    //     } catch(err) {
+    //         return(false)
+    //     }
+    //   }
+
+    //  const verife = checkUrl(avatar)
+    //  if(!verife)  return res.status(400).send("Voce precisa mandar um Link Valido para seu avatar.");
 
     users.push({ username, avatar });
       res.status(201).send('OK')
@@ -44,7 +46,7 @@ app.post('/tweets', (req,res) => {
   const username = req.headers.user;
   const tweet = req.body.tweet;
 
-  if (!username || !tweet) {
+  if (!tweet) {
     return res.status(400).send('Todos os campos são obrigatórios.');
   } if(typeof username !== 'string' || typeof tweet !== 'string'){
     return res.status(400).send('Digite um texto por favor.');
@@ -52,10 +54,8 @@ app.post('/tweets', (req,res) => {
 
   const logOn = users.find(user => user.username === username);
 
-  if (!logOn) {
-    return res.status(401).send("UNAUTHORIZED");
-  }
-
+  if (!logOn)  return res.status(401).send("UNAUTHORIZED");
+  
   tweets.push({ username, tweet});
   res.status(201).send('OK')
 })
@@ -78,7 +78,7 @@ app.get('/tweets', (req,res) => {
     res.status(200).send([...tweets].reverse());
     return;
   }
-  res.status(200).send([...tweets].reverse().slice(start, end));
+  res.status(200).send([...tweets].reverse().slice(10));
  });
 
 
