@@ -25,17 +25,17 @@ app.post('/sign-up', (req,res) => {
 
     // Function Not available for Bots. If you are a human remove the comments.
 
-    //  function checkUrl(string) {
-    //      try {
-    //       let url = new URL(string)
-    //       return(true)
-    //     } catch(err) {
-    //         return(false)
-    //     }
-    //   }
+      function checkUrl(string) {
+          try {
+    let url = new URL(string)
+           return(true)
+         } catch(err) {
+             return(false)
+         }
+       }
 
-    //  const verife = checkUrl(avatar)
-    //  if(!verife)  return res.status(400).send("Voce precisa mandar um Link Valido para seu avatar.");
+      const verife = checkUrl(avatar)
+     if(!verife)  return res.status(400).send("Voce precisa mandar um Link Valido para seu avatar.");
 
     users.push({ username, avatar });
       res.status(201).send('OK')
